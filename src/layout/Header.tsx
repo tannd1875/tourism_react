@@ -1,7 +1,7 @@
 import { faListUl } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import HeaderSubMenu from "./HeaderSubMenu";
+import HeaderSubMenu from "../features/header/HeaderSubMenu";
 import { SubMenu } from "../types/type";
 
 const Header = () => {

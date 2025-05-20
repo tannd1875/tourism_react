@@ -1,6 +1,6 @@
 import { directionType } from "../types/type";
 
-import Direction from "../components/Direction";
+import Direction from "../features/direction-card/Direction";
 
 type Props = {
   items: directionType[];

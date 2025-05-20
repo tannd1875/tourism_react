@@ -1,4 +1,4 @@
-import { DirectionFilterContext } from "../lib/context/filterContext";
+import { DirectionFilterContext } from "../store/context/filterContext";
 import React, { useContext } from "react";
 
 type FilterInputProps = {

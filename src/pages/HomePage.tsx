@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import SearchBox from "../components/SearchBox";
-import SuggestedList from "../components/SuggestedList";
+import SearchBox from "../features/search-box/SearchBox";
+import SuggestedList from "../features/suggested-card/SuggestedList";
 import { directionType, tipType } from "../types/type";
-import { fetchDirectionList, fetchTipList } from "../lib/api";
+import { fetchDirectionList, fetchTipList } from "../services/api";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {

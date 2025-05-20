@@ -1,4 +1,4 @@
-import { directionType, tipType } from "../types/type";
+import { directionType, tipType } from "../../types/type";
 import { useEffect, useState } from "react";
 
 type Prop = {

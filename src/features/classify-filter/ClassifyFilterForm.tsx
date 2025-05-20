@@ -1,6 +1,6 @@
-import { DirectionFilterContext } from "../lib/context/filterContext";
+import { DirectionFilterContext } from "../../store/context/filterContext";
 import React, { useContext } from "react";
-import FilterInput from "./FilterInput";
+import FilterInput from "../../components/FilterInput";
 
 const ClassifyFilterForm = () => {
   const { classifyBy, setClassifyBy, locationBy, setIsActiveFilter } =

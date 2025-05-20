@@ -1,6 +1,6 @@
 import ListDirection from "./ListDirection";
 import ListTips from "./ListTip";
-import { SliderType } from "../types/type";
+import { SliderType } from "../../types/type";
 
 const SuggestedList = ({ slideList, type }: SliderType) => {
   return (

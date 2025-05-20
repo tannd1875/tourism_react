@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import Heading from "../components/Heading";
-import InfoDetail from "../components/InfoDetail";
-import RelatedList from "../components/RelatedList";
+import InfoDetail from "../features/blog/InfoDetail";
+import RelatedList from "../features/related-list/RelatedList";
 import { useSearchParams } from "react-router-dom";
 import { directionType, tipType } from "../types/type";
-import { fetchInformation } from "../lib/api";
+import { fetchInformation } from "../services/api";
 
 const InformationDetailPage = () => {
   const [searchParam] = useSearchParams();

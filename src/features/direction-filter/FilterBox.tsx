@@ -1,9 +1,9 @@
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import ClassifyFilterForm from "../components/ClassifyFilterForm";
-import LocationFilterForm from "../components/LocationFilterForm";
-import FilterSubmit from "./FilterSubmit";
+import ClassifyFilterForm from "../classify-filter/ClassifyFilterForm";
+import LocationFilterForm from "./LocationFilterForm";
+import FilterSubmit from "../../components/FilterSubmit";
 
 const FilterBox = () => {
   const [activeFilterResponsive, setActiveFilterResponsive] =

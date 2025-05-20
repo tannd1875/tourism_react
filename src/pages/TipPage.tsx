@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import Heading from "../components/Heading";
-import TipsList from "../components/TipList";
-import Pagination from "../components/Pagination";
+import TipsList from "../layout/TipList";
+import Pagination from "../features/pagination/Pagination";
 import { manageDataOnTipPage } from "../utils/helper";
 import { tipType } from "../types/type";
-import { fetchTipList } from "../lib/api";
+import { fetchTipList } from "../services/api";
 
 const TipsPage = () => {
   //handle full data

@@ -1,4 +1,4 @@
-import "../styles/dropdown.css";
+import "../../styles/dropdown.css";
 
 type DropDownType = {
   List: Array<string>;

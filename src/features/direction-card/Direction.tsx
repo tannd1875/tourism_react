@@ -1,7 +1,7 @@
-import { directionType } from "../types/type";
+import { directionType } from "../../types/type";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { formatCurrency } from "../utils/formatting";
+import { formatCurrency } from "../../utils/formatting";
 
 type Prop = {
   item: directionType;
@@ -28,7 +28,7 @@ const Direction = ({ item }: Prop) => {
         <div className="w-40 h-40 overflow-hidden">
           <img
             src={item.images[0]}
-            alt="Dicrection Cover"
+            alt="Direction Cover"
             className="w-full h-full object-cover rounded-md"
           />
         </div>

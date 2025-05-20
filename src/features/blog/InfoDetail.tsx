@@ -5,7 +5,7 @@ type Prop = {
 
 const InfoDetail = ({ images, description }: Prop) => {
   const mergeData = (description: Array<string>, images: Array<string>) => {
-    let res = [];
+    const res = [];
     for (let i = 0; i < description.length; i++) {
       if (i < images.length) {
         res.push([description[i]]);

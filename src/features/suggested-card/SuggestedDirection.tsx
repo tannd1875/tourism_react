@@ -5,7 +5,7 @@ import {
   faMoneyBill,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
-import { formatCurrency } from "../utils/formatting";
+import { formatCurrency } from "../../utils/formatting";
 
 type Prop = {
   id: string;

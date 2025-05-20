@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import FilterBox from "../components/FilterBox";
+import FilterBox from "../features/direction-filter/FilterBox";
 import Heading from "../components/Heading";
-import DirectionList from "../components/DirectionList";
+import DirectionList from "../layout/DirectionList";
 import { manageDataOnDirectionPage, getDataFiltered } from "../utils/helper";
-import Pagination from "../components/Pagination";
+import Pagination from "../features/pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
 import { directionType } from "../types/type";
-import { fetchDirectionList } from "../lib/api";
-import { DirectionHeadingContext } from "../lib/context/headingContext";
-import { DirectionFilterContext } from "../lib/context/filterContext";
+import { fetchDirectionList } from "../services/api";
+import { DirectionHeadingContext } from "../store/context/headingContext";
+import { DirectionFilterContext } from "../store/context/filterContext";
 
 const DirectionListPage = () => {
   const [searchParams] = useSearchParams();
