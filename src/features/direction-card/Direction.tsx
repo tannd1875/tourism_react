@@ -1,11 +1,7 @@
-import { directionType } from "../../types/type";
+import { Direction } from "../../types/type";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatCurrency } from "../../utils/formatting";
-
-type Prop = {
-  item: directionType;
-};
 
 const ColorClassify: { [index: string]: unknown } = {
   "Danh lam thắng cảnh": "bg-teal-400",
@@ -14,7 +10,7 @@ const ColorClassify: { [index: string]: unknown } = {
   "Trung tâm thương mại": "bg-blue-400",
 };
 
-const Direction = ({ item }: Prop) => {
+const DirectionItem = ({ item }: { item: Direction }) => {
   return (
     <a
       href={`/information/?id=${item._id}&type=direction`}
@@ -81,4 +77,4 @@ const Direction = ({ item }: Prop) => {
   );
 };
 
-export default Direction;
+export default DirectionItem;

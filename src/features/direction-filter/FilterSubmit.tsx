@@ -1,5 +1,6 @@
-import { DirectionFilterContext } from "../store/context/filterContext";
+import { DirectionFilterContext } from "../../store/context/filterContext";
 import { useContext } from "react";
+import Button from "../../components/Button";
 
 const FilterSubmit = () => {
   const {
@@ -27,18 +28,19 @@ const FilterSubmit = () => {
           Vui lòng chọn các bộ lọc trước khi lọc kết quả!
         </p>
       ) : null}
-      <button
+      <Button
+        variant="form"
         value={"Filter"}
         onClick={() => {
           setIsSubmit(true);
         }}
-        type="submit"
         className={`block py-4 w-full ${submitButtonMap[isActiveFilter]} rounded-md text-white mb-2 font-bold`}
       >
         Lọc kết quả
-      </button>
+      </Button>
       {isActiveFilter ? (
-        <button
+        <Button
+          variant="form"
           value={"Reset"}
           onClick={() => {
             setIsSubmit(true);
@@ -47,11 +49,10 @@ const FilterSubmit = () => {
             setClassifyBy([]);
             setLocationBy([]);
           }}
-          type="submit"
           className={`block py-4 w-full ${resetButtonMap[isActiveFilter]} rounded-md text-white mb-2 font-bold`}
         >
           Xóa bộ lọc
-        </button>
+        </Button>
       ) : null}
     </>
   );

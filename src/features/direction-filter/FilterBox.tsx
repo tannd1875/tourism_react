@@ -1,9 +1,10 @@
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import ClassifyFilterForm from "../classify-filter/ClassifyFilterForm";
+import ClassifyFilterForm from "./ClassifyFilterForm";
 import LocationFilterForm from "./LocationFilterForm";
-import FilterSubmit from "../../components/FilterSubmit";
+import FilterSubmit from "./FilterSubmit";
+import Button from "../../components/Button";
 
 const FilterBox = () => {
   const [activeFilterResponsive, setActiveFilterResponsive] =
@@ -16,15 +17,15 @@ const FilterBox = () => {
 
   return (
     <>
-      <button
+      <Button
         onClick={() => setActiveFilterResponsive("mobile")}
-        className="px-4 py-2 border rounded-sm mb-4 right-0 -mt-4 ml-60 sm:hidden"
+        variant="filter_mobile"
       >
         <FontAwesomeIcon icon={faFilter} className="inline-block mr-2" />
         Bộ lọc
-      </button>
+      </Button>
       <button
-        className={`lg:hidden max-sm:${filterResponsiveMap[activeFilterResponsive]} w-screen h-screen z-10 inset-0 bg-gray-300 fixed`}
+        className={`lg:hidden max-sm:${filterResponsiveMap[activeFilterResponsive]} w-screen h-full z-10 bg-gray-300 fixed inset-0`}
         onClick={() => setActiveFilterResponsive("window")}
       ></button>
 

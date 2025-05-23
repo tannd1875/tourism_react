@@ -1,30 +1,20 @@
 import { faListUl } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import HeaderSubMenu from "../features/header/HeaderSubMenu";
-import { SubMenu } from "../types/type";
+import Button from "../components/Button";
+
+const responsiveClassMap: { [index: string]: string } = {
+  mobile: "border bg-slate-300",
+  window: "",
+};
+const subMenuMap: { [index: string]: string } = {
+  mobile: "visible",
+  window: "hidden",
+};
 
 const Header = () => {
   const [responsive, setResponsive] = useState("window");
-  const responsiveClassMap: { [index: string]: string } = {
-    mobile: "border bg-slate-300",
-    window: "",
-  };
-  const subMenuMap: { [index: string]: string } = {
-    mobile: "visible",
-    window: "hidden",
-  };
 
-  const subMenus: SubMenu[] = [
-    {
-      body: "Điểm đến du lịch",
-      href: "/direction",
-    },
-    {
-      body: "Mẹo du lịch",
-      href: "/tip",
-    },
-  ];
   return (
     <header className="bg-gray-200 flex justify-between py-4 px-10 border-2 fixed top-0 left-0 right-0 z-20">
       <a className="flex items-center w-20 hover:cursor-pointer" href="/">
@@ -43,17 +33,23 @@ const Header = () => {
         <div
           className={`max-sm:${subMenuMap[responsive]} flex flex-col sm:flex-row max-sm:absolute max-sm:top-20 max-sm:right-10`}
         >
-          {subMenus.map((menu, index) => {
-            return (
-              <HeaderSubMenu
-                key={index}
-                body={menu.body}
-                href={menu.href}
-                responsive={responsive}
-                setResponsive={setResponsive}
-              ></HeaderSubMenu>
-            );
-          })}
+          <Button
+            variant="submenu"
+            to={`/direction`}
+            className={`max-sm:${responsiveClassMap[responsive]}`}
+            onClick={() => setResponsive("window")}
+          >
+            Điểm đến du lịch
+          </Button>
+
+          <Button
+            variant="submenu"
+            to={`/tip`}
+            className={`max-sm:${responsiveClassMap[responsive]}`}
+            onClick={() => setResponsive("window")}
+          >
+            Mẹo du lịch
+          </Button>
         </div>
       </nav>
     </header>

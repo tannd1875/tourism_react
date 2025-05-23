@@ -1,13 +1,10 @@
-import { tipType } from "../types/type";
+import Button from "../components/Button";
+import { Tip } from "../types/type";
 
-type Prop = {
-  items: tipType[];
-};
-
-const TipsList = ({ items }: Prop) => {
+const TipList = ({ tips }: { tips: Tip[] }) => {
   return (
     <>
-      {items.map((item, index) => (
+      {tips.map((item, index) => (
         <div
           key={index}
           className="flex justify-start items-center lg:gap-10 gap-4 lg:ml-20 mx-4"
@@ -20,13 +17,15 @@ const TipsList = ({ items }: Prop) => {
             />
           </div>
           <div className="w-1/2">
-            <p className="lg:text-2xl text-xl font-semibold">{item.title}</p>
-            <a
-              className="block w-1/3 text-center max-sm:w-36 lg:text-2xl text-xl lg:bg-gray-500 text-white lg:p-6 p-4 mt-4 rounded-md lg:hover:bg-amber-500 bg-amber-500"
-              href={`/information?id=${item._id}&type=tip`}
+            <span className="lg:text-2xl text-xl font-semibold">
+              {item.title}
+            </span>
+            <Button
+              variant="tip_info"
+              to={`/information?id=${item._id}&type=tip`}
             >
               Xem thêm
-            </a>
+            </Button>
           </div>
         </div>
       ))}
@@ -34,4 +33,4 @@ const TipsList = ({ items }: Prop) => {
   );
 };
 
-export default TipsList;
+export default TipList;

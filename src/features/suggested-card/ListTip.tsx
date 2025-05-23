@@ -1,23 +1,19 @@
-import SugTip from "./SuggestedTip";
-import { tipType } from "../types/type";
+import TipCard from "./TipCard";
+import { Tip } from "../../types/type";
 
-type Prop = {
-  ListTip: tipType[];
-};
-
-const ListTips = ({ ListTip }: Prop) => {
+const ListTip = ({ tips }: { tips: Tip[] }) => {
   return (
-    <div className="flex justify-between items-center gap-[50px] ml-[16px]">
-      {ListTip.map((tip) => (
-        <SugTip
+    <div className="flex justify-between items-center">
+      {tips.map((tip) => (
+        <TipCard
           key={tip._id}
           title={tip.title}
-          image={tip.images[0]}
-          id={tip._id}
-        ></SugTip>
+          cover={tip.images[0]}
+          _id={tip._id}
+        />
       ))}
     </div>
   );
 };
 
-export default ListTips;
+export default ListTip;

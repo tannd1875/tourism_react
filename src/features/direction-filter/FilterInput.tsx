@@ -1,5 +1,6 @@
-import { DirectionFilterContext } from "../store/context/filterContext";
+import { DirectionFilterContext } from "../../store/context/filterContext";
 import React, { useContext } from "react";
+import Input from "../../components/Input";
 
 type FilterInputProps = {
   value: string;
@@ -13,29 +14,28 @@ const FilterInput = ({ value, onChangeFunction }: FilterInputProps) => {
   if (isResetFilter) {
     setIsResetFilter(false);
   }
+
   return (
-    <div className="mb-4">
+    <div>
       {isResetFilter ? (
-        <input
+        <Input
           type="checkbox"
           name={value}
           value={value}
           checked={false}
-          id=""
-          className="inline mr-4 scale-[1.75] hover:cursor-pointer"
           onChange={onChangeFunction}
+          variant="filter_checkbox"
         />
       ) : (
-        <input
+        <Input
           type="checkbox"
           name={value}
           value={value}
-          id=""
-          className="inline mr-4 scale-[1.75] hover:cursor-pointer"
           onChange={onChangeFunction}
+          variant="filter_checkbox"
         />
       )}
-      <p className="label inline">{value}</p>
+      <span className="label inline">{value}</span>
     </div>
   );
 };

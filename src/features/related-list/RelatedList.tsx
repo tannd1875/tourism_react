@@ -1,43 +1,35 @@
-import { directionType, tipType } from "../../types/type";
+import Button from "../../components/Button";
+import { fetchDirectionList, fetchTipList } from "../../services/api";
+import { Direction, RelatedListType, Tip } from "../../types/type";
 import { useEffect, useState } from "react";
 
-type Prop = {
-  currInfo: string;
-  title: string;
-  type: string;
-};
-
-const RelatedList = ({ currInfo, title, type }: Prop) => {
-  const [data, setData] = useState<Array<directionType | tipType>>([]);
+const RelatedList = ({ currInfo, title, type }: RelatedListType) => {
+  const [data, setData] = useState<Array<Direction | Tip>>([]);
 
   useEffect(() => {
     const getData = async () => {
-      try {
-        const response = await fetch(`http://localhost:5001/${type}`);
-        if (!response.ok) {
-          throw new Error("Fail to get Data");
-        }
-        const data: Array<directionType | tipType> = await response.json();
-        const newData = data.filter((dt) => dt.title != currInfo).slice(0, 3);
-        setData(newData);
-      } catch (e: unknown) {
-        console.log(e);
+      let data = [];
+      if (type === "direction") {
+        data = await fetchDirectionList();
+      } else {
+        data = await fetchTipList();
       }
+      const newData = data.filter((dt) => dt.title != currInfo).slice(0, 3);
+      setData(newData);
     };
     getData();
   }, [currInfo, type]);
-  console.log(data);
   return (
-    <div className="w-2/3">
-      <p className="text-xl text-l font-bold mb-4">{title}</p>
+    <div className="w-1/3">
+      <span className="text-xl text-l font-bold block mb-8">{title}</span>
       {data.map((dt) => (
-        <a
+        <Button
           key={dt._id}
-          className="text-xl mb-2 text-justify hover:cursor-pointer hover:underline block"
-          href={`/information?id=${dt._id}&type=${type}`}
+          variant="related_list"
+          to={`/information?id=${dt._id}&type=${type}`}
         >
           {dt.title}
-        </a>
+        </Button>
       ))}
     </div>
   );

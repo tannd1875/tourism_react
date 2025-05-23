@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import Heading from "../components/Heading";
-import InfoDetail from "../features/blog/InfoDetail";
+import InfoDetail from "../features/info/InfoDetail";
 import RelatedList from "../features/related-list/RelatedList";
 import { useSearchParams } from "react-router-dom";
-import { directionType, tipType } from "../types/type";
+import { Direction, Tip } from "../types/type";
 import { fetchInformation } from "../services/api";
 
 const InformationDetailPage = () => {
   const [searchParam] = useSearchParams();
   const idParam = searchParam.get("id");
   const typeParam = searchParam.get("type");
-  const [data, setData] = useState<directionType | tipType>();
+  const [data, setData] = useState<Direction | Tip>();
 
   useEffect(() => {
     const URL = `http://localhost:5001/${typeParam}/${idParam}`;
@@ -43,7 +43,7 @@ const InformationDetailPage = () => {
           ) : null}
           <p className="my-8 text-2xl font-bold">Thông tin liên quan</p>
         </div>
-        <div className="lg:w-1/2 max-sm:gap-8 mx-auto flex justify-evenly items-start my-10">
+        <div className="lg:w-1/2 max-sm:gap-8 mx-auto flex items-start justify-around my-10">
           <RelatedList
             currInfo={data.title}
             title={"Địa điểm du lịch"}

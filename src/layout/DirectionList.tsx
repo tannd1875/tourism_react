@@ -1,12 +1,8 @@
-import { directionType } from "../types/type";
+import { Direction } from "../types/type";
 
-import Direction from "../features/direction-card/Direction";
+import DirectionItem from "../features/direction-card/Direction";
 
-type Props = {
-  items: directionType[];
-};
-
-const DirectionList = ({ items }: Props) => {
+const DirectionList = ({ items }: { items: Direction[] }) => {
   return (
     <>
       <div className="lg:w-2/3 grow mx-2 lg:ml-6">
@@ -14,7 +10,7 @@ const DirectionList = ({ items }: Props) => {
           <p className="italic">Không có kết quả phù hợp nào được tìm thấy</p>
         ) : (
           items.map((item) => {
-            return <Direction item={item} key={item._id}></Direction>;
+            return <DirectionItem item={item} key={item._id} />;
           })
         )}
       </div>

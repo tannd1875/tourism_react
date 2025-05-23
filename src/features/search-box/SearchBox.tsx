@@ -1,13 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import DropDownMenu from "./DropDownMenu";
-import { Link } from "react-router-dom";
-
-const dropDownList = [
-  "Đồng Nai",
-  "Bình Dương",
-  "Thành phố Hồ Chí Minh",
-  "Bà Rịa - Vũng Tàu",
-];
+import Button from "../../components/Button";
 
 const SearchBox = () => {
   const [addressValue, setAddressValue] = useState<string>("");
@@ -19,10 +12,7 @@ const SearchBox = () => {
         Tìm một địa điểm du lịch phù hợp
       </h1>
       <div className="flex justify-between items-center gap-4 rounded flex-col lg:flex-row">
-        <DropDownMenu
-          List={dropDownList}
-          setAddress={setAddressValue}
-        ></DropDownMenu>
+        <DropDownMenu setAddress={setAddressValue} />
         <input
           required
           className="flex p-4 w-full outline-none grow-1"
@@ -32,12 +22,12 @@ const SearchBox = () => {
             setDirectionValue(e.target.value);
           }}
         />
-        <Link
-          className="lg:w-1/6 w-full border-white border bg-green-300 p-4 font-bold hover:cursor-pointer text-center min-w-40"
+        <Button
+          variant="search"
           to={`/direction?direction=${directionValue}&address=${addressValue}`}
         >
           Tìm kiếm
-        </Link>
+        </Button>
       </div>
     </div>
   );

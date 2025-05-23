@@ -5,7 +5,7 @@ import DirectionList from "../layout/DirectionList";
 import { manageDataOnDirectionPage, getDataFiltered } from "../utils/helper";
 import Pagination from "../features/pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
-import { directionType } from "../types/type";
+import { Direction } from "../types/type";
 import { fetchDirectionList } from "../services/api";
 import { DirectionHeadingContext } from "../store/context/headingContext";
 import { DirectionFilterContext } from "../store/context/filterContext";
@@ -16,7 +16,7 @@ const DirectionListPage = () => {
   const addressParam = searchParams.get("address");
 
   // all direction => context
-  const [rawData, setRawData] = useState<Array<directionType>>([]);
+  const [rawData, setRawData] = useState<Array<Direction>>([]);
 
   //handle page, pagination limit of page is 5
   const [page, setPage] = useState(1);
@@ -26,7 +26,7 @@ const DirectionListPage = () => {
   const [sortBy, setSortBy] = useState("");
 
   //handle direction list on page
-  const [directionList, setDirectionList] = useState<Array<directionType>>([]);
+  const [directionList, setDirectionList] = useState<Array<Direction>>([]);
   const [count, setCount] = useState(0);
 
   //handle filter
@@ -54,49 +54,14 @@ const DirectionListPage = () => {
     getData();
   }, [addressParam, directionParam]);
 
-  // every time sortByValue change => data on page change
-  useEffect(() => {
-    const handleSort = () => {
-      const sortedList = [...directionList];
-      if (sortBy === "Tên") {
-        sortedList.sort((a, b) => {
-          if (a.title < b.title) {
-            return -1;
-          } else if (a.title > b.title) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
-      }
-
-      if (sortBy === "Giá tiền") {
-        sortedList.sort((a, b) => {
-          if (a.price < b.price) {
-            return -1;
-          } else if (a.price > b.price) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
-      }
-      setDirectionList(sortedList);
-      setCount(directionList.length);
-    };
-    handleSort();
-  }, [sortBy]);
-
   //handle filter
   useEffect(() => {
     const filteredList = [classifyBy, locationBy];
     const handleFilter = (filteredList: string[][]) => {
-      console.log(filteredList);
       if (filteredList) {
         const filterResult = getDataFiltered(rawData, filteredList);
         setDirectionList(filterResult);
         setCount(filterResult.length);
-        console.log(filterResult);
         setIsSubmit(false);
       } else {
         setDirectionList(manageDataOnDirectionPage(rawData, 1, limit));
@@ -111,7 +76,7 @@ const DirectionListPage = () => {
       setCount(rawData.length);
       window.location.reload();
     }
-  }, [isSubmit, isResetFilter]);
+  }, [isSubmit, isResetFilter, classifyBy, locationBy, rawData]);
 
   const handlePageChange = (value: number) => {
     const newData = manageDataOnDirectionPage(rawData, value, limit);
@@ -143,7 +108,7 @@ const DirectionListPage = () => {
               setIsSubmit,
             }}
           >
-            <FilterBox></FilterBox>
+            <FilterBox />
           </DirectionFilterContext.Provider>
           <DirectionList items={directionList}></DirectionList>
         </div>

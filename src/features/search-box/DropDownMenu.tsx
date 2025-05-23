@@ -1,11 +1,17 @@
 import "../../styles/dropdown.css";
 
 type DropDownType = {
-  List: Array<string>;
   setAddress: (arg: string) => void;
 };
 
-const DropDownMenu = ({ List, setAddress }: DropDownType) => {
+const dropDownList = [
+  "Đồng Nai",
+  "Bình Dương",
+  "Thành phố Hồ Chí Minh",
+  "Bà Rịa - Vũng Tàu",
+];
+
+const DropDownMenu = ({ setAddress }: DropDownType) => {
   const handleDropDown = () => {
     const select = document.querySelector(".select");
     const caret = document.querySelector(".caret");
@@ -40,7 +46,7 @@ const DropDownMenu = ({ List, setAddress }: DropDownType) => {
         <div className="caret"></div>
       </div>
       <ul className="menu">
-        {List.map((item, index) => {
+        {dropDownList.map((item, index) => {
           return <li key={index}>{item}</li>;
         })}
       </ul>

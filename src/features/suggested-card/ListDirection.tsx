@@ -1,24 +1,20 @@
-import SugDirection from "./SuggestedDirection";
-import { directionType } from "../types/type";
+import DirectionCard from "./DirectionCard";
+import { Direction } from "../../types/type";
 
-type Props = {
-  directions: directionType[];
-};
-
-const ListDirection = ({ directions }: Props) => {
+const ListDirection = ({ directions }: { directions: Direction[] }) => {
   return (
-    <div className="flex justify-between items-center gap-[50px] ml-[16px]">
+    <div className="flex justify-between items-center">
       {directions.map((direction) => (
-        <SugDirection
+        <DirectionCard
           key={direction._id}
-          id={direction._id}
-          name={direction.title}
+          _id={direction._id}
+          title={direction.title}
           address={direction.address}
           classify={direction.classify}
           score={5}
           price={direction.price}
-          image={direction.images[0]}
-        ></SugDirection>
+          cover={direction.images[0]}
+        />
       ))}
     </div>
   );

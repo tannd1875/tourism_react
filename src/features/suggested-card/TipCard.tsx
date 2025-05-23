@@ -1,19 +1,15 @@
-type Prop = {
-  title: string;
-  image: string;
-  id: string;
-};
+import { TipInstance } from "../../types/type";
 
-const SugTip = ({ title, image, id }: Prop) => {
+const TipCard = ({ title, cover, _id }: TipInstance) => {
   return (
     <a
       className="transition-all duration-200 w-64 rounded my-4 hover:scale-105"
-      href={`/information?id=${id}&type=tip`}
+      href={`/information?id=${_id}&type=tip`}
     >
       <div className="w-64 h-64 overflow-hidden mx-auto rounded-md">
         <img
           className="w-full h-full object-cover rounded-md"
-          src={image}
+          src={cover}
           alt={title}
         />
       </div>
@@ -24,4 +20,4 @@ const SugTip = ({ title, image, id }: Prop) => {
   );
 };
 
-export default SugTip;
+export default TipCard;

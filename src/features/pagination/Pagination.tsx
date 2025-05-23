@@ -24,7 +24,6 @@ const Pagination = ({
   type,
 }: Prop) => {
   const handlePage = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(currentPage, numberOfPage);
     onPageChange(event.target.value);
   };
 

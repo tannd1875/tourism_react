@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles/index.css";
@@ -10,31 +10,39 @@ import NotFoundPage from "./pages/NotFoundPage.tsx";
 import TipsPage from "./pages/TipPage.tsx";
 import InformationDetailPage from "./pages/InformationDetailPage.tsx";
 
+const Layout = () => (
+  <div className="flex justify-start flex-col min-h-screen">
+    <Header />
+    <Outlet />
+    <Footer />
+  </div>
+);
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: <Layout />,
     errorElement: <NotFoundPage />,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/direction",
+        element: <DirectionPage />,
+      },
+      {
+        path: "/tip",
+        element: <TipsPage />,
+      },
+      { path: "/information", element: <InformationDetailPage /> },
+    ],
   },
-  {
-    path: "/direction",
-    element: <DirectionPage />,
-  },
-  {
-    path: "/tip",
-    element: <TipsPage />,
-  },
-  { path: "/information", element: <InformationDetailPage /> },
 ]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <div className="flex justify-start flex-col min-h-screen">
-      <Header />
-      <div className="grow">
-        <RouterProvider router={router} />
-      </div>
-      <Footer />
-    </div>
+    <RouterProvider router={router} />
   </StrictMode>
 );
