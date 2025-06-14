@@ -1,9 +1,10 @@
-type Prop = {
+const InfoDetail = ({
+  images,
+  description,
+}: {
   images: Array<string>;
   description: Array<string>;
-};
-
-const InfoDetail = ({ images, description }: Prop) => {
+}) => {
   const mergeData = (description: Array<string>, images: Array<string>) => {
     const res = [];
     for (let i = 0; i < description.length; i++) {

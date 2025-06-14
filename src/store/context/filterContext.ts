@@ -7,10 +7,10 @@ export type FilterContext = {
   setLocationBy: (locationList: Array<string>) => void;
   isActiveFilter: boolean;
   setIsActiveFilter: (status: boolean) => void;
-  isResetFilter: boolean;
-  setIsResetFilter: (status: boolean) => void;
-  isSubmit: boolean;
-  setIsSubmit: (status: boolean) => void;
+  query: object;
+  updateQuery: (newQuery: object) => void;
+  resetQuery: () => void;
+  addressParam: string | null;
 };
 
 export const DirectionFilterContext = createContext<FilterContext>({
@@ -20,10 +20,10 @@ export const DirectionFilterContext = createContext<FilterContext>({
   setLocationBy: () => {},
   isActiveFilter: false,
   setIsActiveFilter: () => {},
-  isResetFilter: false,
-  setIsResetFilter: () => {},
-  isSubmit: false,
-  setIsSubmit: () => {},
+  query: {},
+  updateQuery: () => {},
+  resetQuery: () => {},
+  addressParam: "",
 });
 
 export const useGlobalFilterContext = () => useContext(DirectionFilterContext);

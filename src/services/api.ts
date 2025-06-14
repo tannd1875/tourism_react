@@ -12,7 +12,7 @@ export const fetchDirectionList = async (
       throw new Error(`Failed to fetch directions: ${response.statusText}`);
     }
     const data: Array<Direction> = await response.json();
-    return data;
+    return data.data;
   } catch (error: unknown) {
     throw new Error("Failed to fetch directions: " + error);
   }
@@ -25,7 +25,7 @@ export const fetchTipList = async (URL = TIP_URL): Promise<Array<Tip>> => {
       throw new Error(`Failed to fetch tips: ${response.statusText}`);
     }
     const data: Array<Tip> = await response.json();
-    return data;
+    return data.data;
   } catch (error: unknown) {
     throw new Error("Failed to fetch tips: " + error);
   }
@@ -43,5 +43,31 @@ export const fetchInformation = async (
     return data;
   } catch (error: unknown) {
     throw new Error("Failed to fetch tips: " + error);
+  }
+};
+
+export const fetchProvinceList = async (): Promise<Array<string>> => {
+  try {
+    const response = await fetch(`${DIRECTION_URL}/province`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch directions: ${response.statusText}`);
+    }
+    const data: Array<string> = await response.json();
+    return data;
+  } catch (error: unknown) {
+    throw new Error("Failed to fetch directions: " + error);
+  }
+};
+
+export const fetchClassificationList = async (): Promise<Array<string>> => {
+  try {
+    const response = await fetch(`${DIRECTION_URL}/classification`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch directions: ${response.statusText}`);
+    }
+    const data: Array<string> = await response.json();
+    return data;
+  } catch (error: unknown) {
+    throw new Error("Failed to fetch directions: " + error);
   }
 };

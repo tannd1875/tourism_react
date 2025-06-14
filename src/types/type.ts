@@ -60,3 +60,5 @@ export type RelatedListType = {
   title: string;
   type: string;
 };
+
+export type Data = Direction | Tip;

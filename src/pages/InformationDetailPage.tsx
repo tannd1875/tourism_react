@@ -1,39 +1,22 @@
-import { useState, useEffect } from "react";
 import Heading from "../components/Heading";
 import InfoDetail from "../features/info/InfoDetail";
 import RelatedList from "../features/related-list/RelatedList";
 import { useSearchParams } from "react-router-dom";
-import { Direction, Tip } from "../types/type";
-import { fetchInformation } from "../services/api";
+import useFetchItem from "../hooks/useFetchItem";
+import { Item } from "../types/hooks";
 
 const InformationDetailPage = () => {
   const [searchParam] = useSearchParams();
   const idParam = searchParam.get("id");
   const typeParam = searchParam.get("type");
-  const [data, setData] = useState<Direction | Tip>();
+  const [rawData] = useFetchItem({ path: `${typeParam}/${idParam}` });
+  const data = rawData as unknown as Item;
 
-  useEffect(() => {
-    const URL = `http://localhost:5001/${typeParam}/${idParam}`;
-    const getData = async () => {
-      setData(await fetchInformation(URL));
-    };
-
-    getData();
-  }, [idParam, typeParam]);
-  useEffect(() => {
-    const URL = `http://localhost`;
-    const getData = async () => {
-      setData(await fetchInformation(URL));
-    };
-
-    getData();
-  }, []);
-
-  if (!data) return <Heading title="No information found!"></Heading>;
+  if (!data) return <Heading title="No information found!" />;
   return (
     <>
       <div className="mt-28 w-4/5 mx-auto">
-        <Heading title={data.title}></Heading>
+        <Heading title={data.title} />
         <div className="lg:w-2/3 mx-auto">
           {data.images ? (
             <InfoDetail
@@ -48,13 +31,13 @@ const InformationDetailPage = () => {
             currInfo={data.title}
             title={"Địa điểm du lịch"}
             type={"direction"}
-          ></RelatedList>
+          />
 
           <RelatedList
             currInfo={data.title}
             title={"Các mẹo du lịch"}
             type={"tip"}
-          ></RelatedList>
+          />
         </div>
       </div>
     </>

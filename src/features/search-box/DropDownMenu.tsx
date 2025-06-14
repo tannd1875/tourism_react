@@ -1,17 +1,18 @@
 import "../../styles/dropdown.css";
 
-type DropDownType = {
-  setAddress: (arg: string) => void;
-};
-
+// const dropDownList = (localStorage.getItem("provinces") as string).split(",");
 const dropDownList = [
-  "Đồng Nai",
   "Bình Dương",
   "Thành phố Hồ Chí Minh",
+  "Đồng Nai",
   "Bà Rịa - Vũng Tàu",
 ];
 
-const DropDownMenu = ({ setAddress }: DropDownType) => {
+const DropDownMenu = ({
+  setAddress,
+}: {
+  setAddress: (arg: string) => void;
+}) => {
   const handleDropDown = () => {
     const select = document.querySelector(".select");
     const caret = document.querySelector(".caret");

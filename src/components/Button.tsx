@@ -4,7 +4,7 @@ import { cn } from "../utils/cva";
 import { Link } from "react-router-dom";
 
 const buttonVariants = cva(
-  "text-center hover:scale-105 hover:font-bold hover:cursor-pointer transition-transform duration-300",
+  "text-center hover:font-bold hover:cursor-pointer hover:scale-105 transition-transform duration-300",
   {
     variants: {
       variant: {
@@ -20,6 +20,10 @@ const buttonVariants = cva(
           "block w-1/3 text-center max-sm:w-36 lg:text-2xl text-xl lg:bg-gray-500 text-white lg:p-6 p-4 mt-4 rounded-md lg:hover:bg-amber-500 bg-amber-500",
         related_list:
           "text-xl mb-2 text-justify hover:cursor-pointer block bg-slate-500 p-4 rounded text-white hover:bg-amber-400 text-center",
+        pagination:
+          "flex items-center justify-center p-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-300 min-w-10 hover:scale-none",
+        pagination_mobile:
+          "inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50",
       },
     },
     defaultVariants: {

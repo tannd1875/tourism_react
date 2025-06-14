@@ -2,22 +2,18 @@ import { DirectionFilterContext } from "../../store/context/filterContext";
 import React, { useContext } from "react";
 import Input from "../../components/Input";
 
-type FilterInputProps = {
+const FilterInput = ({
+  value,
+  onChangeFunction,
+}: {
   value: string;
   onChangeFunction: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-const FilterInput = ({ value, onChangeFunction }: FilterInputProps) => {
-  const { isResetFilter, setIsResetFilter } = useContext(
-    DirectionFilterContext
-  );
-  if (isResetFilter) {
-    setIsResetFilter(false);
-  }
+}) => {
+  const { isActiveFilter, addressParam } = useContext(DirectionFilterContext);
 
   return (
     <div>
-      {isResetFilter ? (
+      {!isActiveFilter ? (
         <Input
           type="checkbox"
           name={value}
@@ -31,6 +27,7 @@ const FilterInput = ({ value, onChangeFunction }: FilterInputProps) => {
           type="checkbox"
           name={value}
           value={value}
+          defaultChecked={value == addressParam}
           onChange={onChangeFunction}
           variant="filter_checkbox"
         />

@@ -1,48 +1,33 @@
-import { useEffect, useState } from "react";
 import Heading from "../components/Heading";
 import TipList from "../layout/TipList";
-import Pagination from "../features/pagination/Pagination";
-import { manageDataOnTipPage } from "../utils/helper";
+import useFetchList from "../hooks/useFetchList";
 import { Tip } from "../types/type";
-import { fetchTipList } from "../services/api";
+import useQuery from "../hooks/useQuery";
+import Pagination from "../features/pagination/Pagination";
 
 const TipsPage = () => {
-  //handle full data
-  const [rawData, setRawData] = useState<Array<Tip>>([]);
-  //handle data base on pagination
-  const [tipLists, setTipLists] = useState<Array<Tip>>([]);
-
-  // 5 tips per page
-  const limit = 5;
-  const [page, setPage] = useState(1);
-
-  useEffect(() => {
-    const getTipData = async () => {
-      const data = await fetchTipList();
-      setRawData(data);
-      setTipLists(manageDataOnTipPage(data, 1, limit));
-    };
-    getTipData();
-  }, [rawData, page]);
+  const filter: Record<string, string> = {};
+  filter.page = "1";
+  filter.limit = "3";
+  const [query, updateQuery] = useQuery(filter);
+  const [tipList, total] = useFetchList({
+    path: "/tip",
+    query: query,
+  });
 
   const handlePageChange = (value: number) => {
-    const dataOnPage = manageDataOnTipPage(rawData, value, limit);
-    setPage(value);
-    setTipLists(dataOnPage);
+    updateQuery({ page: value });
   };
+
   return (
     <>
       <div className="mt-28 lg:w-4/5 mx-auto">
-        <Heading count={rawData.length} />
-        <TipList tips={tipLists} />
+        <Heading count={total} type="tip" />
+        <TipList tips={tipList as Tip[]} />
         <Pagination
           onPageChange={handlePageChange}
-          currentPage={page}
-          end={page * limit > rawData.length ? rawData.length : page * limit}
-          length={rawData.length}
-          numberOfPage={Math.ceil(rawData.length / limit)}
-          type={"mẹo du lịch"}
-        ></Pagination>
+          totalPage={Math.ceil(total / 3)}
+        />
       </div>
     </>
   );

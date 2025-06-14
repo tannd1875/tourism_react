@@ -34,9 +34,9 @@ const FilterBox = () => {
         max-sm:w-4/5 max-sm:mx-auto max-sm:absolute max-sm:z-20 max-sm:top-8 
         max-sm:left-8`}
       >
-        <ClassifyFilterForm></ClassifyFilterForm>
-        <LocationFilterForm></LocationFilterForm>
-        <FilterSubmit></FilterSubmit>
+        <ClassifyFilterForm />
+        <LocationFilterForm />
+        <FilterSubmit />
       </div>
     </>
   );

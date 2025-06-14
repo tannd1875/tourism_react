@@ -1,26 +1,42 @@
-import { useEffect, useState } from "react";
 import SearchBox from "../features/search-box/SearchBox";
 import SuggestedList from "../layout/SuggestedList";
-import { Direction, Tip } from "../types/type";
-import { fetchDirectionList, fetchTipList } from "../services/api";
 import Button from "../components/Button";
+import useFetchList from "../hooks/useFetchList";
+import { Direction, Tip } from "../types/type";
 
 const HomePage = () => {
-  const [directionList, setDirectionList] = useState<Direction[]>([]);
-  const [tipList, setTipList] = useState<Tip[]>([]);
+  const [recommendDirection] = useFetchList({
+    path: "direction/recommend",
+    query: {
+      number: 4,
+    },
+  });
 
-  useEffect(() => {
-    const getData = async () => {
-      setDirectionList(await fetchDirectionList());
-      setTipList(await fetchTipList());
-    };
-    getData();
-  }, []);
+  const [recommendTip] = useFetchList({
+    path: "tip/recommend",
+    query: {
+      number: 4,
+    },
+  });
+
+  if (!localStorage.getItem("provinces")) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [provinces] = useFetchList({
+      path: "direction/province",
+    });
+    localStorage.setItem("provinces", provinces.toString());
+  }
+
+  if (!localStorage.getItem("classify")) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [classification] = useFetchList({ path: "direction/classification" });
+    localStorage.setItem("classification", classification.toString());
+  }
 
   return (
     <>
       <div className="lg:w-4/5 m-auto">
-        <SearchBox></SearchBox>
+        <SearchBox />
         <div className="my-12">
           <h1 className="text-center text-3xl font-bold uppercase">
             Điểm đến lý tưởng
@@ -32,7 +48,7 @@ const HomePage = () => {
           </Button>
 
           <SuggestedList
-            slideList={directionList.slice(0, 4)}
+            slideList={recommendDirection as Direction[]}
             type={"direction"}
           />
         </div>
@@ -46,10 +62,7 @@ const HomePage = () => {
             Xem thêm
           </Button>
 
-          <SuggestedList
-            slideList={tipList.slice(0, 4)}
-            type={"tip"}
-          ></SuggestedList>
+          <SuggestedList slideList={recommendTip as Tip[]} type={"tip"} />
         </div>
       </div>
     </>
