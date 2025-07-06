@@ -1,25 +1,25 @@
-import { DirectionFilterContext } from "../../store/context/filterContext";
-import { useContext } from "react";
 import Button from "../../components/Button";
+import { FilterSubmitProps } from "../../types/type";
 
-const FilterSubmit = () => {
-  const {
-    isActiveFilter,
-    setIsActiveFilter,
-    setClassifyBy,
-    setLocationBy,
-    updateQuery,
-    classifyBy,
-    locationBy,
-    resetQuery,
-    addressParam,
-  } = useContext(DirectionFilterContext);
-  const submitButtonMap: { [index: string]: unknown } = {
+const FilterSubmit = ({
+  isActiveFilter,
+  setIsActiveFilter,
+  setClassifyBy,
+  setSecondaryBy,
+  updateQuery,
+  classifyBy,
+  secondaryBy,
+  resetQuery,
+  provinceParam,
+  redirectPath,
+  secondaryKey,
+}: FilterSubmitProps) => {
+  const submitButtonMap: Record<string, string> = {
     true: "bg-teal-500",
     false: "hover:cursor-not-allowed bg-gray-200 hover:scale-none",
   };
 
-  const resetButtonMap: { [index: string]: unknown } = {
+  const resetButtonMap: Record<string, string> = {
     true: "bg-red-500",
     false: "bg-gray-200 hover:cursor-not-allowed",
   };
@@ -31,33 +31,32 @@ const FilterSubmit = () => {
         onClick={() => {
           updateQuery({
             classifyBy: classifyBy.join(","),
-            address: locationBy.join(","),
+            [secondaryKey]: secondaryBy.join(","),
           });
         }}
-        className={submitButtonMap[isActiveFilter.toString()] as string}
+        className={submitButtonMap[isActiveFilter.toString()]}
       >
         Lọc kết quả
       </Button>
-      {isActiveFilter ? (
+      {isActiveFilter && (
         <Button
           variant="form"
           value={"Reset"}
           onClick={() => {
             setIsActiveFilter(false);
             setClassifyBy([]);
-            setLocationBy([]);
-            if (addressParam) {
+            setSecondaryBy([]);
+            resetQuery();
+            if (provinceParam && redirectPath) {
               updateQuery({ page: 1, limit: 3 });
-              window.location.href = "/direction";
-            } else {
-              resetQuery();
+              window.location.href = redirectPath;
             }
           }}
-          className={resetButtonMap[isActiveFilter.toString()] as string}
+          className={resetButtonMap[isActiveFilter.toString()]}
         >
           Xóa bộ lọc
         </Button>
-      ) : null}
+      )}
     </>
   );
 };

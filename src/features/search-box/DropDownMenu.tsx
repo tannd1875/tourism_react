@@ -1,18 +1,17 @@
+import useFetchList from "../../hooks/useFetchList";
 import "../../styles/dropdown.css";
-
-// const dropDownList = (localStorage.getItem("provinces") as string).split(",");
-const dropDownList = [
-  "Bình Dương",
-  "Thành phố Hồ Chí Minh",
-  "Đồng Nai",
-  "Bà Rịa - Vũng Tàu",
-];
+import { Province } from "../../types/type";
 
 const DropDownMenu = ({
   setAddress,
 }: {
   setAddress: (arg: string) => void;
 }) => {
+  const [dropDownList] = useFetchList({
+    path: "/province",
+    query: {},
+  });
+
   const handleDropDown = () => {
     const select = document.querySelector(".select");
     const caret = document.querySelector(".caret");
@@ -47,8 +46,8 @@ const DropDownMenu = ({
         <div className="caret"></div>
       </div>
       <ul className="menu">
-        {dropDownList.map((item, index) => {
-          return <li key={index}>{item}</li>;
+        {(dropDownList as Province[]).map((item) => {
+          return <li key={item._id}>{item.name}</li>;
         })}
       </ul>
     </div>

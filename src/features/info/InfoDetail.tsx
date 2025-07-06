@@ -22,7 +22,7 @@ const InfoDetail = ({
           {block[5] == ":" ? (
             <div className="w-full h-80 overflow-hidden mb-8">
               <img
-                src={block}
+                src={block as string}
                 alt="Hình ảnh"
                 className="w-full h-full object-cover"
               />

@@ -1,7 +1,10 @@
+import { QueryResetter, QueryUpdater } from "../hooks/useQuery";
+
 export type Direction = {
   _id: string;
   title: string;
-  address: string;
+  province: string;
+  detailAddress: string;
   price: number;
   classify: string;
   images: string[];
@@ -12,7 +15,8 @@ export type Direction = {
 export type DirectionInstance = {
   _id: string;
   title: string;
-  address: string;
+  province: string;
+  detailAddress: string;
   price: number;
   classify: string;
   cover: string;
@@ -37,6 +41,26 @@ export type SubMenu = {
   href: string;
 };
 
+export type Province = {
+  _id: string;
+  name: string;
+};
+
+export type DirectionCategory = {
+  _id: string;
+  name: string;
+};
+
+export type ProductCategory = {
+  _id: string;
+  name: string;
+};
+
+export type Brand = {
+  _id: string;
+  name: string;
+  country: string;
+};
 // for slider
 type DirectionSlider = {
   slideList: Direction[];
@@ -49,9 +73,11 @@ type TipSlider = {
 };
 export type Slider = DirectionSlider | TipSlider;
 
+export type Type = "direction" | "tip" | "product";
+
 export type HeadingType = {
   count?: number;
-  type?: string;
+  type?: Type;
   title?: string;
 };
 
@@ -61,4 +87,42 @@ export type RelatedListType = {
   type: string;
 };
 
-export type Data = Direction | Tip;
+export type Data =
+  | Direction
+  | Tip
+  | Province
+  | DirectionCategory
+  | Product
+  | ProductCategory
+  | Brand;
+
+export type Product = {
+  _id: string;
+  name: string;
+  brand: string;
+  description: string;
+  price: number;
+  images: string[];
+  stock: number;
+};
+
+export type FilterSubmitProps = {
+  isActiveFilter: boolean;
+  setIsActiveFilter: (active: boolean) => void;
+  setClassifyBy: (value: string[]) => void;
+  setSecondaryBy: (value: string[]) => void;
+  updateQuery: QueryUpdater;
+  classifyBy: string[];
+  secondaryBy: string[];
+  resetQuery: QueryResetter;
+  provinceParam?: string;
+  redirectPath?: string;
+  secondaryKey: string; // e.g. "province" or "brand"
+};
+
+export type FilterInputProps = {
+  value: string;
+  onChangeFunction: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  isActiveFilter?: boolean;
+  provinceParam?: string;
+};

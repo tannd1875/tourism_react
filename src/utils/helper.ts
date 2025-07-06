@@ -1,54 +1,20 @@
-import { Direction, Tip } from "../types/type";
+import { Cart, CartItem } from "../types/hooks";
 
-export const manageDataOnTipPage = (
-  data: Array<Tip>,
-  page: number,
-  limit: number
-): Array<Tip> => {
-  const array = [];
-  for (let index = (page - 1) * limit; index < page * limit; index++)
-    if (index < data.length) array.push(data[index]);
-  return array;
-};
-
-export const manageDataOnDirectionPage = (
-  data: Array<Direction>,
-  page: number,
-  limit: number
-): Array<Direction> => {
-  const array = [];
-  for (let index = (page - 1) * limit; index < page * limit; index++)
-    if (index < data.length) array.push(data[index]);
-  return array;
-};
-
-const getDataFilteredByClassify = (
-  data: Array<Direction>,
-  classifyList: Array<string>
-): Array<Direction> => {
-  return data.filter((direction) => {
-    return classifyList.includes(direction.classify);
+export const getTotalPrice = (cart: Cart) => {
+  const receipts: Array<{ price: number; quantity: number }> = (
+    Array.isArray(cart.items) ? cart.items : []
+  ).map((item) => {
+    return {
+      price: item.product.price,
+      quantity: item.quantity,
+    };
   });
-};
-
-const getDataFilteredByLocation = (
-  data: Array<Direction>,
-  locationList: Array<string>
-): Array<Direction> => {
-  return data.filter((direction) => {
-    return locationList.includes(direction.address);
-  });
-};
-
-export const getDataFiltered = (
-  data: Array<Direction>,
-  filterList: string[][]
-): Array<Direction> => {
-  const filterByClassify = getDataFilteredByClassify(data, filterList[0]);
-  const filterByLocation = getDataFilteredByLocation(data, filterList[1]);
-  if (filterList[1].length == 0) return filterByClassify;
-  if (filterList[0].length == 0) return filterByLocation;
-  return filterByClassify.filter((direction) =>
-    filterByLocation.includes(direction)
+  return receipts.reduce(
+    (acc, receipts) => acc + receipts.price * receipts.quantity,
+    0
   );
+};
+
+export const getItemTotalPrice = (item: CartItem) => {
+  return item.quantity * item.product.price;
 };

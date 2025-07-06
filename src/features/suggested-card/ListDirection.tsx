@@ -9,7 +9,8 @@ const ListDirection = ({ directions }: { directions: Direction[] }) => {
           key={direction._id}
           _id={direction._id}
           title={direction.title}
-          address={direction.address}
+          province={direction.province}
+          detailAddress={direction.detailAddress}
           classify={direction.classify}
           score={5}
           price={direction.price}

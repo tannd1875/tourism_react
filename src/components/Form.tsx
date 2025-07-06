@@ -5,11 +5,12 @@ import { cn } from "../utils/cva";
 const formVariants = cva("", {
   variants: {
     variant: {
-      filter_form: "flex flex-col justify-between align-start mb-4 ml-6 gap-4",
+      filter: "flex flex-col justify-between align-start mb-4 ml-6 gap-4",
+      register: "grid grid-cols-2 gap-x-4 gap-y-6 max-sm:grid-cols-1",
     },
   },
   defaultVariants: {
-    variant: "filter_form",
+    variant: "filter",
   },
 });
 

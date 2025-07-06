@@ -1,16 +1,10 @@
-import { DirectionFilterContext } from "../../store/context/filterContext";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Input from "../../components/Input";
+import { DirectionFilterContext } from "../../store/context/context";
+import { FilterInputProps } from "../../types/type";
 
-const FilterInput = ({
-  value,
-  onChangeFunction,
-}: {
-  value: string;
-  onChangeFunction: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}) => {
-  const { isActiveFilter, addressParam } = useContext(DirectionFilterContext);
-
+const FilterInput = ({ value, onChangeFunction }: FilterInputProps) => {
+  const { isActiveFilter, provinceParam } = useContext(DirectionFilterContext);
   return (
     <div>
       {!isActiveFilter ? (
@@ -27,12 +21,13 @@ const FilterInput = ({
           type="checkbox"
           name={value}
           value={value}
-          defaultChecked={value == addressParam}
+          defaultChecked={value == provinceParam}
+          disabled={value == provinceParam}
           onChange={onChangeFunction}
           variant="filter_checkbox"
         />
       )}
-      <span className="label inline">{value}</span>
+      <span className="inline">{value}</span>
     </div>
   );
 };

@@ -13,7 +13,7 @@ const Footer = () => {
           <div className="flex justify-start gap-4 items-center mb-8">
             <div className="flex items-center w-28 hover:cursor-pointer">
               <img
-                src="./src/assets/img/logo.png"
+                src="/src/assets/img/logo.png"
                 alt="Logo"
                 className="w-full h-full"
               />
@@ -58,13 +58,13 @@ const Footer = () => {
               className="flex items-center w-14 hover:cursor-pointer"
               href="https://www.facebook.com/UIT.Fanpage"
             >
-              <img src="./src/assets/img/Facebook_logo.png" alt="Logo" />
+              <img src="/src/assets/img/Facebook_logo.png" alt="Logo" />
             </a>
             <a
               className="flex items-center w-20 hover:cursor-pointer"
               href="https://www.youtube.com/@uitchannel"
             >
-              <img src="./src/assets/img/Youtube_logo.png" alt="Logo" />
+              <img src="/src/assets/img/Youtube_logo.png" alt="Logo" />
             </a>
           </div>
         </div>

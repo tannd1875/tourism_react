@@ -18,12 +18,12 @@ const InformationDetailPage = () => {
       <div className="mt-28 w-4/5 mx-auto">
         <Heading title={data.title} />
         <div className="lg:w-2/3 mx-auto">
-          {data.images ? (
+          {data.images && (
             <InfoDetail
               images={data.images}
               description={data.description}
             ></InfoDetail>
-          ) : null}
+          )}
           <p className="my-8 text-2xl font-bold">Thông tin liên quan</p>
         </div>
         <div className="lg:w-1/2 max-sm:gap-8 mx-auto flex items-start justify-around my-10">

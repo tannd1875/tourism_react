@@ -6,6 +6,9 @@ const inputVariants = cva("", {
   variants: {
     variant: {
       filter_checkbox: "inline mr-4 scale-[1.75] hover:cursor-pointer",
+      text_register:
+        "bg-white rounded-full outline-none p-4 text-cyan-800 font-bold block",
+      search_input: "flex p-4 w-full outline-none grow-1",
     },
   },
   defaultVariants: {

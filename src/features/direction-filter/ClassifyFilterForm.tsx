@@ -1,23 +1,19 @@
-import { DirectionFilterContext } from "../../store/context/filterContext";
 import React, { useContext } from "react";
-import FilterInput from "./FilterInput";
 import Form from "../../components/Form";
 import FormWrapper from "../../layout/FormWrapper";
-
-// const ClassifyList = (localStorage.getItem("classification") as string).split(
-//   ","
-// );
-
-const ClassifyList = [
-  "Danh lam thắng cảnh",
-  "Khu vui chơi giải trí",
-  "Di tích lịch sử",
-  "Trung tâm thương mại",
-];
+import useFetchList from "../../hooks/useFetchList";
+import { DirectionFilterContext } from "../../store/context/context";
+import { DirectionCategory } from "../../types/type";
+import FilterInput from "./FilterInput";
 
 const ClassifyFilterForm = () => {
   const { locationBy, setIsActiveFilter, classifyBy, setClassifyBy } =
     useContext(DirectionFilterContext);
+
+  const [classifyList] = useFetchList({
+    path: "/direction-category",
+    query: {},
+  });
 
   const handleClassifyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
@@ -40,18 +36,14 @@ const ClassifyFilterForm = () => {
   };
   return (
     <FormWrapper title="Loại hình du lịch">
-      <Form
-        name="ClassifyFilterForm"
-        action=""
-        className="flex flex-col justify-between items-left mb-4 ml-6 gap-4"
-      >
-        {ClassifyList.map((classify, index) => {
+      <Form name="ClassifyFilterForm" action="" variant="filter">
+        {(classifyList as DirectionCategory[]).map((classify) => {
           return (
             <FilterInput
-              value={classify}
-              key={index}
+              value={classify.name}
+              key={classify._id}
               onChangeFunction={handleClassifyChange}
-            ></FilterInput>
+            />
           );
         })}
       </Form>

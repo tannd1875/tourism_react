@@ -44,7 +44,7 @@ const DirectionItem = ({ item }: { item: Direction }) => {
               icon={faLocationDot}
               className="w-3.5 inline mx-2"
             />
-            {item.address}
+            {item.detailAddress}
           </p>
           <div className="sm:hidden">
             {item.price ? (

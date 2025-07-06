@@ -1,5 +1,6 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { StrictMode } from "react";
+import { AuthProvider } from "./store/context/AuthProvider.tsx";
 import { createRoot } from "react-dom/client";
 import "./styles/index.css";
 import Header from "./layout/Header.tsx";
@@ -9,20 +10,31 @@ import DirectionPage from "./pages/DirectionPage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import TipsPage from "./pages/TipPage.tsx";
 import InformationDetailPage from "./pages/InformationDetailPage.tsx";
+import Register from "./features/authentication/Register.tsx";
+import Login from "./features/authentication/Login.tsx";
+import ProfilePage from "./pages/ProfilePage.tsx";
+import ProtectedProfile from "./features/authentication/ProtectedProfile.tsx";
+import ProductionPage from "./pages/ProductionPage.tsx";
+import ProductDetailPage from "./pages/ProductDetailPage.tsx";
+import CartPage from "./pages/CartPage.tsx";
 
-const Layout = () => (
-  <div className="flex justify-start flex-col min-h-screen">
-    <Header />
-    <Outlet />
-    <Footer />
-  </div>
-);
-
+export const PageLayout = () => {
+  return (
+    <AuthProvider>
+      <div className="flex justify-start flex-col min-h-screen">
+        <Header />
+        <div className="flex-1">
+          <Outlet />
+        </div>
+        <Footer />
+      </div>
+    </AuthProvider>
+  );
+};
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
-    errorElement: <NotFoundPage />,
+    element: <PageLayout />,
     children: [
       {
         path: "/",
@@ -36,7 +48,27 @@ const router = createBrowserRouter([
         path: "/tip",
         element: <TipsPage />,
       },
+      {
+        path: "/product",
+        element: <ProductionPage />,
+      },
+      {
+        path: "/product-detail",
+        element: <ProductDetailPage />,
+      },
       { path: "/information", element: <InformationDetailPage /> },
+      { path: "/signup", element: <Register /> },
+      { path: "/login", element: <Login /> },
+      {
+        element: <ProtectedProfile />,
+        children: [{ path: "/profile", element: <ProfilePage /> }],
+      },
+      {
+        element: <ProtectedProfile />,
+        children: [{ path: "/cart", element: <CartPage /> }],
+      },
+
+      { path: "*", element: <NotFoundPage /> },
     ],
   },
 ]);

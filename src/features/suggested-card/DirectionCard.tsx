@@ -11,7 +11,7 @@ import { DirectionInstance } from "../../types/type";
 const DirectionCard = ({
   _id,
   title,
-  address,
+  province,
   classify,
   score,
   price,
@@ -37,7 +37,7 @@ const DirectionCard = ({
               icon={faLocationDot}
               className="w-4 mt-1 mr-2 inline float-left text-green-300"
             />
-            <p className="truncate">{address}</p>
+            <p className="truncate">{province}</p>
           </div>
           <div className="mb-2">
             <FontAwesomeIcon

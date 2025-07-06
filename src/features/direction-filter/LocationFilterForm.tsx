@@ -1,14 +1,19 @@
-import { DirectionFilterContext } from "../../store/context/filterContext";
 import React, { useContext } from "react";
 import FilterInput from "./FilterInput";
 import Form from "../../components/Form";
 import FormWrapper from "../../layout/FormWrapper";
-
-const LocationList = (localStorage.getItem("provinces") as string).split(",");
+import useFetchList from "../../hooks/useFetchList";
+import { DirectionFilterContext } from "../../store/context/context";
+import { Province } from "../../types/type";
 
 const LocationFilterForm = () => {
   const { locationBy, setLocationBy, classifyBy, setIsActiveFilter } =
     useContext(DirectionFilterContext);
+
+  const [locationList] = useFetchList({
+    path: "/province",
+    query: {},
+  });
 
   const handleLocationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newLocationList = locationBy;
@@ -31,12 +36,12 @@ const LocationFilterForm = () => {
 
   return (
     <FormWrapper title="Tỉnh/ Thành phố">
-      <Form name="CityFilterForm" variant="filter_form">
-        {LocationList.map((location, index) => {
+      <Form name="CityFilterForm" variant="filter">
+        {(locationList as Province[]).map((province) => {
           return (
             <FilterInput
-              value={location}
-              key={index}
+              value={province.name}
+              key={province._id}
               onChangeFunction={handleLocationChange}
             />
           );
