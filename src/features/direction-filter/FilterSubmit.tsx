@@ -13,6 +13,7 @@ const FilterSubmit = ({
   provinceParam,
   redirectPath,
   secondaryKey,
+  setPage,
 }: FilterSubmitProps) => {
   const submitButtonMap: Record<string, string> = {
     true: "bg-teal-500",
@@ -32,7 +33,10 @@ const FilterSubmit = ({
           updateQuery({
             classifyBy: classifyBy.join(","),
             [secondaryKey]: secondaryBy.join(","),
+            page: 1,
+            limit: 9,
           });
+          setPage(1);
         }}
         className={submitButtonMap[isActiveFilter.toString()]}
       >
@@ -48,7 +52,7 @@ const FilterSubmit = ({
             setSecondaryBy([]);
             resetQuery();
             if (provinceParam && redirectPath) {
-              updateQuery({ page: 1, limit: 3 });
+              updateQuery({ page: 1, limit: 9 });
               window.location.href = redirectPath;
             }
           }}

@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import useInput from "../../hooks/useInput";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import PasswordInput from "./PasswordInput";
+import { setAccessToken } from "../../services/axios";
 
 const Login = () => {
   const [account, accountAttribute, isValidAccount] = useInput({});
@@ -29,15 +30,13 @@ const Login = () => {
     }
     if (isValidAccount && isValidPassword) {
       try {
-        const response = await api.post(
-          "/user/signin",
-          JSON.stringify({
-            account: account,
-            password: password,
-          })
-        );
+        const response = await api.post("/user/signin", {
+          account: account,
+          password: password,
+        });
         if (response.status === 200) {
           setIsAuth(true);
+          setAccessToken(response.data.accessToken);
           setUser(JSON.stringify(response.data));
           window.location.href = "/";
         } else {

@@ -11,17 +11,16 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import api from "../../services/axios";
 
 const ProductItem = ({ product }: { product: Product }) => {
-  const [user] = useLocalStorage("user");
-
+  const [isAuth] = useLocalStorage("isAuth");
   const handleSubmitCart = () => {
-    const body = {
-      userId: JSON.parse(user).id,
-      productId: product._id,
-      quantity: 1,
-      accessToken: JSON.parse(user).accessToken,
-    };
-
-    api.post("/cart", JSON.stringify(body));
+    if (JSON.parse(isAuth) === false) {
+      window.location.href = "/login";
+    } else {
+      api.post("/cart", {
+        productId: product._id,
+        quantity: 1,
+      });
+    }
   };
   return (
     <div className="rounded-md my-4 border-2 border-t-0 hover:font-normal text-center w-64 overflow-hidden">

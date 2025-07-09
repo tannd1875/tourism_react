@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Button from "../../components/Button";
 import { AuthContext } from "../../store/context/context";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import api from "../../services/axios";
+import api, { refreshAccessToken } from "../../services/axios";
 import {
   faCartShopping,
   faRightFromBracket,
@@ -27,10 +27,7 @@ const LoggedInUserButton = () => {
   }, [user?.avatar]);
 
   const handleLogout = async () => {
-    const response = await api.post(
-      "/user/signout",
-      JSON.stringify({ account: user?.email })
-    );
+    const response = await api.post("/user/signout", { account: user?.email });
     if (response) {
       updateUser(JSON.stringify(""));
       setAuth(JSON.stringify(false));
@@ -96,6 +93,14 @@ const LoggedInUserButton = () => {
           <FontAwesomeIcon icon={faRightFromBracket} className="mr-4" />
           Đăng xuất
         </Button>
+        {/* <Button
+          variant="submenu"
+          className="border bg-slate-300"
+          onClick={refreshAccessToken}
+        >
+          <FontAwesomeIcon icon={faRightFromBracket} className="mr-4" />
+          refresh_token
+        </Button> */}
       </div>
     </div>
   );

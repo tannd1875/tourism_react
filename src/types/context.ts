@@ -12,6 +12,8 @@ export type DirectionFilterContextType = {
   updateQuery: (newQuery: object) => void;
   resetQuery: () => void;
   provinceParam: string | null;
+  page: number;
+  setPage: (page: number) => void;
 };
 
 export type AuthContextType = {
@@ -19,6 +21,8 @@ export type AuthContextType = {
   setIsAuth: (status: boolean) => void;
   user: User | null;
   setUser: (user: User | null) => void;
+  accessToken: string;
+  setAccessToken: (token: string) => void;
 };
 
 export type ProfileContextType = {
@@ -39,6 +43,8 @@ export type ProductFilterContextType = {
   setBrandBy: (brandList: Array<string>) => void;
   isActiveFilter: boolean;
   setIsActiveFilter: (status: boolean) => void;
+  page: number;
+  setPage: (page: number) => void;
   query: object;
   updateQuery: QueryUpdater;
   resetQuery: QueryResetter;

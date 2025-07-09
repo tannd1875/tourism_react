@@ -25,6 +25,7 @@ export type CartItem = {
   _id: string;
   product: CartProduct;
   quantity: number;
+  images: string[];
 };
 
 export type Cart = {

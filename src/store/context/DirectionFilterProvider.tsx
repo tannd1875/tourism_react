@@ -20,6 +20,7 @@ export const DirectionFilterProvider = ({
   const [isActiveFilter, setIsActiveFilter] = useState(
     provinceParam ? true : false
   );
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     if (provinceParam) {
@@ -40,6 +41,8 @@ export const DirectionFilterProvider = ({
         updateQuery,
         resetQuery,
         provinceParam,
+        page,
+        setPage,
       }}
     >
       {children}

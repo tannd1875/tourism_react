@@ -9,7 +9,7 @@ const CartPage = () => {
   const [user] = useLocalStorage("user");
 
   const [cart, loading] = useFetchItem({
-    path: `/cart/${JSON.parse(user).id}`,
+    path: `/cart/userCart`,
     query: {},
     config: {
       headers: {

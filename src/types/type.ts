@@ -118,6 +118,8 @@ export type FilterSubmitProps = {
   provinceParam?: string;
   redirectPath?: string;
   secondaryKey: string; // e.g. "province" or "brand"
+  setPage: (page: number) => void;
+  page: number;
 };
 
 export type FilterInputProps = {
@@ -125,4 +127,11 @@ export type FilterInputProps = {
   onChangeFunction: (event: React.ChangeEvent<HTMLInputElement>) => void;
   isActiveFilter?: boolean;
   provinceParam?: string;
+};
+
+export type PaginationProps = {
+  page: number;
+  setPage: (page: number) => void;
+  totalPage: number;
+  onPageChange: (page: number) => void;
 };

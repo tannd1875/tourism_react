@@ -25,7 +25,7 @@ const ProductDetailPage = () => {
           <>
             <div className="flex justify-between items-start bg-gray-50 p-8 rounded mb-8">
               <Carousel images={(product as Product).images} />
-              <ProductInfo product={product as Product}></ProductInfo>
+              <ProductInfo product={product as Product} />
             </div>
             <div className="lg:w-2/3 mx-auto">
               <div className="w-full h-1 bg-amber-500"></div>

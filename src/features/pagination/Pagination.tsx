@@ -4,17 +4,14 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../components/Button";
-import { useState } from "react";
+import { PaginationProps } from "../../types/type";
 
 const Pagination = ({
   onPageChange,
   totalPage,
-}: {
-  onPageChange: (newPage: number) => void;
-  totalPage: number;
-}) => {
-  const [page, setPage] = useState<number>(1);
-
+  page,
+  setPage,
+}: PaginationProps) => {
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
       <div className="flex flex-1 items-center justify-center">
@@ -25,7 +22,7 @@ const Pagination = ({
           <Button
             variant="pagination"
             className="rounded-l-md"
-            disabled={page == 1}
+            disabled={page === 1}
             onClick={() => {
               const newPage = page - 1 == 0 ? 1 : page - 1;
               setPage(newPage);
@@ -40,10 +37,9 @@ const Pagination = ({
           <Button
             variant="pagination"
             className="rounded-r-md"
-            disabled={page == totalPage}
+            disabled={page === totalPage}
             onClick={() => {
               const newPage = page + 1 == totalPage ? totalPage : page + 1;
-              console.log("New page:", newPage);
               setPage(newPage);
               onPageChange(newPage);
             }}

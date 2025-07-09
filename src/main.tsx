@@ -1,5 +1,4 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import { StrictMode } from "react";
 import { AuthProvider } from "./store/context/AuthProvider.tsx";
 import { createRoot } from "react-dom/client";
 import "./styles/index.css";
@@ -74,7 +73,5 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
+  <RouterProvider router={router} />
 );

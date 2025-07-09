@@ -27,7 +27,6 @@ const ProfileSubmitButton = () => {
       });
 
       if (res.status === 200) {
-        console.log(res.data);
         updateUser(res.data);
         window.location.reload();
       }

@@ -23,6 +23,8 @@ const WithFilterContext = (submitFor: "direction" | "product") => {
       provinceParam: DirectionContext.provinceParam || "",
       redirectPath: "/direction",
       secondaryKey: "province",
+      page: DirectionContext.page,
+      setPage: DirectionContext.setPage,
     };
   } else if (submitFor === "product") {
     filterProps = {
@@ -35,6 +37,8 @@ const WithFilterContext = (submitFor: "direction" | "product") => {
       secondaryBy: ProductContext.brandBy,
       resetQuery: ProductContext.resetQuery,
       secondaryKey: "brand",
+      setPage: ProductContext.setPage,
+      page: ProductContext.page,
     };
   }
   return () => {

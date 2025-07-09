@@ -6,7 +6,7 @@ export type User = {
   phone?: string;
   role?: string;
   address?: string;
-  accessToken: string;
+  accessToken?: string;
 };
 
 export type UserKey = keyof User;

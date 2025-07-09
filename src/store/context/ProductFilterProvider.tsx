@@ -16,6 +16,7 @@ const ProductFilterProvider = ({
   const [classifyBy, setClassifyBy] = useState<string[]>([]);
   const [brandBy, setBrandBy] = useState<string[]>([]);
   const [isActiveFilter, setIsActiveFilter] = useState<boolean>(false);
+  const [page, setPage] = useState(1);
   return (
     <ProductFilterContext.Provider
       value={{
@@ -25,6 +26,8 @@ const ProductFilterProvider = ({
         setBrandBy,
         isActiveFilter,
         setIsActiveFilter,
+        page,
+        setPage,
         query,
         updateQuery,
         resetQuery,

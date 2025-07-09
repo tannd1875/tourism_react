@@ -19,6 +19,8 @@ export const DirectionFilterContext = createContext<DirectionFilterContextType>(
     updateQuery: () => {},
     resetQuery: () => {},
     provinceParam: "",
+    page: 1,
+    setPage: () => {},
   }
 );
 
@@ -27,6 +29,8 @@ export const AuthContext = createContext<AuthContextType>({
   setIsAuth: () => {},
   user: null,
   setUser: () => {},
+  accessToken: "",
+  setAccessToken: () => {},
 });
 
 export const ProfileContext = createContext<ProfileContextType>({
@@ -45,6 +49,8 @@ export const ProductFilterContext = createContext<ProductFilterContextType>({
   setBrandBy: () => {},
   isActiveFilter: false,
   setIsActiveFilter: () => {},
+  page: 1,
+  setPage: () => {},
   query: {},
   updateQuery: () => {},
   resetQuery: () => {},

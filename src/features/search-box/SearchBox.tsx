@@ -12,7 +12,6 @@ const SearchBox = () => {
     const result: Record<string, string> = {};
     if (provinceValue) result.province = provinceValue;
     if (directionValue) result.direction = directionValue;
-    console.log(result);
     return result;
   }, [provinceValue, directionValue]);
 

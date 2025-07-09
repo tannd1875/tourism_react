@@ -4,22 +4,12 @@ import { Cart } from "../../types/hooks";
 import CartItemInList from "./CartItem";
 import { CartChangeContext } from "../../store/context/context";
 import api from "../../services/axios";
-import useLocalStorage from "../../hooks/useLocalStorage";
 
 const CartList = ({ cart, loading }: { cart: Cart; loading: boolean }) => {
   const { isChangeValue, productChanged } = useContext(CartChangeContext);
-  const [user] = useLocalStorage("user");
   const handleSubmit = async () => {
     if (isChangeValue) {
-      const response = await api.put(
-        "/cart",
-        JSON.stringify({ userId: JSON.parse(user).id, items: productChanged }),
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(user).accessToken}`,
-          },
-        }
-      );
+      const response = await api.put("/cart", { items: productChanged });
       if (response.status === 200) {
         window.location.reload();
       }

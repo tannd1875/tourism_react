@@ -1,11 +1,11 @@
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { Product } from "../../types/type"; // Adjust the i
+import { Product } from "../../types/type";
 import { formatCurrency } from "../../utils/formatting";
+import api from "../../services/axios";
 
 const ProductInfo = ({ product }: { product: Product }) => {
-  console.log(product);
   const [quantity, setQuantity] = useState(1);
 
   const handleQuantityChange = (action: string) => {
@@ -23,6 +23,18 @@ const ProductInfo = ({ product }: { product: Product }) => {
     }
   };
 
+  const handleSubmit = async () => {
+    const response = await api.post(
+      "/cart",
+      JSON.stringify({
+        productId: product._id,
+        quantity: quantity,
+      })
+    );
+    if (response.status === 200) {
+      setQuantity(1);
+    }
+  };
   return (
     <div className="flex items-center justify-center p-4 h-96">
       <div className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
@@ -79,8 +91,11 @@ const ProductInfo = ({ product }: { product: Product }) => {
             </button>
           </div>
 
-          <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
-            Đặt hàng
+          <button
+            className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-6 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+            onClick={handleSubmit}
+          >
+            Thêm vào giỏ hàng
           </button>
         </div>
 

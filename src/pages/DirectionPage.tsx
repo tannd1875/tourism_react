@@ -5,10 +5,10 @@ import { DirectionFilterProvider } from "../store/context/DirectionFilterProvide
 import useFetchList from "../hooks/useFetchList";
 import useQuery from "../hooks/useQuery";
 import Heading from "../components/Heading";
-import Pagination from "../features/pagination/Pagination";
 import { Direction } from "../types/type";
 import ClassifyFilterForm from "../features/direction-filter/ClassifyFilterForm";
 import LocationFilterForm from "../features/direction-filter/LocationFilterForm";
+import WithPagination from "../hoc/withPagination";
 
 const DirectionListPage = () => {
   const [searchParams] = useSearchParams();
@@ -29,33 +29,34 @@ const DirectionListPage = () => {
     query: query,
   });
 
-  const handlePageChange = (value: number) => {
-    updateQuery({ page: value });
+  const handlePageChange = (newPage: number) => {
+    updateQuery({ page: newPage });
   };
 
   return (
-    <div className="mt-28 lg:w-4/5 mx-auto w-full">
-      <Heading type="direction" count={total} />
+    <DirectionFilterProvider
+      query={query}
+      updateQuery={updateQuery}
+      resetQuery={resetQuery}
+      provinceParam={provinceParam}
+    >
+      <div className="mt-28 lg:w-4/5 mx-auto w-full">
+        <Heading type="direction" count={total} />
 
-      <div className="lg:flex lg:justify-between lg:items-start lg:flex-1">
-        <DirectionFilterProvider
-          query={query}
-          updateQuery={updateQuery}
-          resetQuery={resetQuery}
-          provinceParam={provinceParam}
-        >
+        <div className="lg:flex lg:justify-between lg:items-start lg:flex-1">
           <FilterBox submitFor="direction">
             <ClassifyFilterForm />
             <LocationFilterForm />
           </FilterBox>
-        </DirectionFilterProvider>
-        <DirectionList items={directionList as Direction[]} />
+          <DirectionList items={directionList as Direction[]} />
+        </div>
+        <WithPagination
+          submitFor="direction"
+          totalPage={Math.ceil(total / 8)}
+          onPageChange={handlePageChange}
+        />
       </div>
-      <Pagination
-        onPageChange={handlePageChange}
-        totalPage={Math.ceil(total / 8)}
-      />
-    </div>
+    </DirectionFilterProvider>
   );
 };
 

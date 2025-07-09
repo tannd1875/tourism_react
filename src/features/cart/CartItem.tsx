@@ -33,22 +33,13 @@ const CartItemInList = ({ cartProduct }: { cartProduct: CartItem }) => {
       temp.push(newProductChanged);
     }
     setProductChanged(temp);
-    console.log("Product changed", productChanged);
   };
 
   const deleteProduct = async () => {
-    const response = await api.put(
-      "/cart/delete",
-      JSON.stringify({
-        productId: cartProduct.product._id,
-        userId: JSON.parse(user).id,
-      }),
-      {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(user).accessToken}`,
-        },
-      }
-    );
+    const response = await api.put("/cart/delete", {
+      productId: cartProduct.product._id,
+      userId: JSON.parse(user).id,
+    });
     if (response.status === 200) {
       window.location.reload();
     }
@@ -110,12 +101,14 @@ const CartItemInList = ({ cartProduct }: { cartProduct: CartItem }) => {
           {formatCurrency(getItemTotalPrice(cartProduct))}
         </span>
       </td>
-      <button
-        className="absolute border w-6 aspect-square right-0 top-1 font-bold hover:bg-red-500 hover:text-white"
-        onClick={deleteProduct}
-      >
-        X
-      </button>
+      <td>
+        <button
+          className="absolute border w-6 aspect-square right-0 top-1 font-bold hover:bg-red-500 hover:text-white"
+          onClick={deleteProduct}
+        >
+          X
+        </button>
+      </td>
     </tr>
   );
 };
