@@ -2,37 +2,28 @@ import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CartItem } from "../../types/hooks";
 import { formatCurrency } from "../../utils/formatting";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { getItemTotalPrice } from "../../utils/helper";
-import { CartChangeContext } from "../../store/context/context";
-import { ProductInfo } from "../../types/context";
 import api from "../../services/axios";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import { AppDispatch } from "../../store/redux/store";
+import {
+  markCartAsChanged,
+  quantityChange,
+} from "../../store/redux/slice/cartSlice";
+import { useDispatch } from "react-redux";
 
 const CartItemInList = ({ cartProduct }: { cartProduct: CartItem }) => {
   const [quantity, setQuantity] = useState(cartProduct.quantity);
-  const { setIsChangeValue, setProductChanged, productChanged } =
-    useContext(CartChangeContext);
   const [user] = useLocalStorage("user");
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleQuantityChange = (newQuantity: number) => {
     setQuantity(newQuantity);
-    setIsChangeValue(true);
-
-    const newProductChanged: ProductInfo = {
-      id: cartProduct.product._id, // productId
-      quantity: newQuantity,
-    };
-    const temp = productChanged;
-    const pos = productChanged.findIndex(
-      (product) => product.id === newProductChanged.id
+    dispatch(markCartAsChanged());
+    dispatch(
+      quantityChange({ id: cartProduct.product._id, quantity: newQuantity })
     );
-    if (pos > -1) {
-      temp[pos].quantity = newProductChanged.quantity;
-    } else {
-      temp.push(newProductChanged);
-    }
-    setProductChanged(temp);
   };
 
   const deleteProduct = async () => {

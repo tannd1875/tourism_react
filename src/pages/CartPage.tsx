@@ -1,21 +1,12 @@
 import CartCollaterals from "../features/cart/CartCollaterals";
 import CartList from "../features/cart/CartList";
 import useFetchItem from "../hooks/useFetchItem";
-import useLocalStorage from "../hooks/useLocalStorage";
 import { Cart } from "../types/hooks";
-import CartChangeProvider from "../store/context/CartChangeProvider";
 
 const CartPage = () => {
-  const [user] = useLocalStorage("user");
-
   const [cart, loading] = useFetchItem({
     path: `/cart/userCart`,
     query: {},
-    config: {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(user).accessToken}`,
-      },
-    },
   });
 
   return (
@@ -25,10 +16,8 @@ const CartPage = () => {
       </p>
 
       <div className="mt-4 flex gap-6">
-        <CartChangeProvider>
-          <CartList cart={cart as Cart} loading={loading} />
-          <CartCollaterals cart={cart as Cart} />
-        </CartChangeProvider>
+        <CartList cart={cart as Cart} loading={loading} />
+        <CartCollaterals cart={cart as Cart} />
       </div>
     </div>
   );

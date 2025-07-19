@@ -1,4 +1,4 @@
-import { ProfileKey } from "../../types/context";
+import { ProfileKey } from "../../store/redux/slice/profileSlice";
 import ProfileField from "./ProfileField";
 
 const ProfileBlock = ({

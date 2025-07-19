@@ -1,13 +1,12 @@
-import { useContext } from "react";
 import LoggedInUserButton from "./LoggedInUserButton";
 import Button from "../../components/Button";
-import { AuthContext } from "../../store/context/context";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const UserButton = () => {
-  const { isAuth } = useContext(AuthContext);
+  const [isAuth] = useLocalStorage("isAuth");
   return (
     <>
-      {isAuth ? (
+      {(JSON.parse(isAuth) as boolean) ? (
         <LoggedInUserButton />
       ) : (
         <Button variant="submenu" className="border bg-slate-300" to={"/login"}>

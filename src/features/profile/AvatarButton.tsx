@@ -1,13 +1,16 @@
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/redux/store";
+import { updateProfile } from "../../store/redux/slice/profileSlice";
 
-const AvatarButton = ({ setAvatar }: { setAvatar: (arg: File) => void }) => {
+const AvatarButton = () => {
   const [onHover, setOnHover] = useState(false);
-
+  const dispatch = useDispatch<AppDispatch>();
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setAvatar(e.target.files[0]);
+      dispatch(updateProfile({ avatar: e.target.files[0] }));
     }
   };
   return (

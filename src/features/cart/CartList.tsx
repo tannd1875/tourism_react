@@ -1,15 +1,20 @@
-import { useContext } from "react";
 import Button from "../../components/Button";
 import { Cart } from "../../types/hooks";
 import CartItemInList from "./CartItem";
-import { CartChangeContext } from "../../store/context/context";
 import api from "../../services/axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/redux/store";
 
 const CartList = ({ cart, loading }: { cart: Cart; loading: boolean }) => {
-  const { isChangeValue, productChanged } = useContext(CartChangeContext);
+  const isChangeValue = useSelector(
+    (state: RootState) => state.cart.isChangeValue
+  );
+  const productsChanged = useSelector(
+    (state: RootState) => state.cart.productsChanged
+  );
   const handleSubmit = async () => {
     if (isChangeValue) {
-      const response = await api.put("/cart", { items: productChanged });
+      const response = await api.put("/cart", { items: productsChanged });
       if (response.status === 200) {
         window.location.reload();
       }

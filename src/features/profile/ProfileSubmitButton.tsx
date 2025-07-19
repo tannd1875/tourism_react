@@ -1,14 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../components/Button";
-import { AuthContext, ProfileContext } from "../../store/context/context";
 import api from "../../services/axios";
 import useLocalStorage from "../../hooks/useLocalStorage";
-
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/redux/store";
+import { updateProfile } from "../../store/redux/slice/profileSlice";
 const ProfileSubmitButton = () => {
-  const { username, email, avatar } = useContext(ProfileContext);
-  const { user } = useContext(AuthContext);
   const [canSubmit, setCanSubmit] = useState(false);
   const [, , updateUser] = useLocalStorage("user");
+  const dispatch = useDispatch<AppDispatch>();
+  const username = useSelector((state: RootState) => state.profile.username);
+  const email = useSelector((state: RootState) => state.profile.email);
+  const avatar = useSelector((state: RootState) => state.profile.avatar);
+
   useEffect(() => {
     setCanSubmit(true);
   }, [username, email, avatar]);
@@ -18,7 +22,6 @@ const ProfileSubmitButton = () => {
     formData.append("username", username);
     formData.append("email", email);
     formData.append("avatar", avatar);
-    formData.append("accessToken", user?.accessToken as string);
     try {
       const res = await api.put("/user/update", formData, {
         headers: {
@@ -27,8 +30,16 @@ const ProfileSubmitButton = () => {
       });
 
       if (res.status === 200) {
+        console.log(res.data);
         updateUser(res.data);
-        window.location.reload();
+        dispatch(
+          updateProfile({
+            displayUsername: res.data.username,
+            displayEmail: res.data.email,
+            displayAvatar: res.data.avatar,
+          })
+        );
+        dispatch(updateProfile(res.data));
       }
     } catch (error) {
       throw new Error(error as unknown as string);

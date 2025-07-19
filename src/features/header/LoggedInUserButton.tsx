@@ -1,33 +1,29 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../../components/Button";
-import { AuthContext } from "../../store/context/context";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import api, { refreshAccessToken } from "../../services/axios";
+import api from "../../services/axios";
 import {
   faCartShopping,
   faRightFromBracket,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/redux/store";
 
 const LoggedInUserButton = () => {
-  const { user } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const [, setAuth] = useLocalStorage("isAuth");
   const [, updateUser] = useLocalStorage("user");
-  const [avatarURL, setAvatarURL] = useState("");
 
-  useEffect(() => {
-    if (user?.avatar == "") {
-      setAvatarURL(
-        "https://static.vecteezy.com/system/resources/previews/016/766/342/original/happy-smiling-young-man-avatar-3d-portrait-of-a-man-cartoon-character-people-illustration-isolated-on-transparent-background-png.png"
-      );
-    }
-    setAvatarURL(user?.avatar as string);
-  }, [user?.avatar]);
+  const username = useSelector(
+    (state: RootState) => state.profile.displayUsername
+  );
+  const email = useSelector((state: RootState) => state.profile.displayEmail);
+  const avatar = useSelector((state: RootState) => state.profile.displayAvatar);
 
   const handleLogout = async () => {
-    const response = await api.post("/user/signout", { account: user?.email });
+    const response = await api.post("/user/signout", { account: email });
     if (response) {
       updateUser(JSON.stringify(""));
       setAuth(JSON.stringify(false));
@@ -56,14 +52,14 @@ const LoggedInUserButton = () => {
       >
         <div className="w-12 object-cover aspect-square rounded-full overflow-hidden">
           <img
-            src={avatarURL}
-            alt={user?.username}
+            src={avatar as string}
+            alt={username}
             className="w-full h-full object-cover object-top"
           />
         </div>
         <div className="flex justify-start gap-2 flex-col items-baseline text-sm">
-          <p className="font-bold">{user?.username}</p>
-          <p>{user?.email}</p>
+          <p className="font-bold">{username}</p>
+          <p>{email}</p>
         </div>
       </Button>
       <div
@@ -93,14 +89,6 @@ const LoggedInUserButton = () => {
           <FontAwesomeIcon icon={faRightFromBracket} className="mr-4" />
           Đăng xuất
         </Button>
-        {/* <Button
-          variant="submenu"
-          className="border bg-slate-300"
-          onClick={refreshAccessToken}
-        >
-          <FontAwesomeIcon icon={faRightFromBracket} className="mr-4" />
-          refresh_token
-        </Button> */}
       </div>
     </div>
   );

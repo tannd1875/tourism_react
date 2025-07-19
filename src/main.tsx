@@ -1,5 +1,4 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import { AuthProvider } from "./store/context/AuthProvider.tsx";
 import { createRoot } from "react-dom/client";
 import "./styles/index.css";
 import Header from "./layout/Header.tsx";
@@ -16,10 +15,12 @@ import ProtectedProfile from "./features/authentication/ProtectedProfile.tsx";
 import ProductionPage from "./pages/ProductionPage.tsx";
 import ProductDetailPage from "./pages/ProductDetailPage.tsx";
 import CartPage from "./pages/CartPage.tsx";
+import { Provider } from "react-redux";
+import { store } from "./store/redux/store.ts";
 
 export const PageLayout = () => {
   return (
-    <AuthProvider>
+    <Provider store={store}>
       <div className="flex justify-start flex-col min-h-screen">
         <Header />
         <div className="flex-1">
@@ -27,7 +28,7 @@ export const PageLayout = () => {
         </div>
         <Footer />
       </div>
-    </AuthProvider>
+    </Provider>
   );
 };
 const router = createBrowserRouter([

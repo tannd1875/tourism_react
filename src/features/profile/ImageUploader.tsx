@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AvatarButton from "./AvatarButton";
-import { ProfileContext } from "../../store/context/context";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/redux/store";
 
 const ImageUploader = () => {
-  const { avatar, setAvatar } = useContext(ProfileContext);
+  const avatar = useSelector((state: RootState) => state.profile.avatar);
   const [url, setUrl] = useState("");
   useEffect(() => {
     if (typeof avatar === "string") {
@@ -23,7 +24,7 @@ const ImageUploader = () => {
           className="w-full h-full object-cover object-top"
         />
       </div>
-      <AvatarButton setAvatar={setAvatar} />
+      <AvatarButton />
     </div>
   );
 };

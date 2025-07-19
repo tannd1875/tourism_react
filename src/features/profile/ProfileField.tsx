@@ -1,17 +1,11 @@
-import { useContext } from "react";
-import { ProfileContext } from "../../store/context/context";
-import { ProfileKey } from "../../types/context";
+import { ProfileKey } from "../../store/redux/slice/profileSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/redux/store";
+import { updateProfile } from "../../store/redux/slice/profileSlice";
 
 const ProfileField = ({ label }: { label: ProfileKey }) => {
-  const context = useContext(ProfileContext);
-  const { setUsername, setEmail } = useContext(ProfileContext);
-
-  const labelHandlers: Record<string, (arg: string) => void> = {
-    username: setUsername,
-    email: setEmail,
-  };
-
-  const handlers = labelHandlers[label];
+  const value = useSelector((state: RootState) => state.profile[label]);
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <div className="flex lg:gap-4 mb-8 lg:text-xl text-base">
@@ -20,10 +14,10 @@ const ProfileField = ({ label }: { label: ProfileKey }) => {
       </label>
       <input
         type="text"
-        value={(context?.[label] as string) ?? ""}
+        value={value as string}
         className={`px-6 py-2 border-black border rounded-sm text-black w-full`}
         onChange={(e) => {
-          handlers(e.target.value);
+          dispatch(updateProfile({ [label]: e.target.value }));
         }}
       />
     </div>

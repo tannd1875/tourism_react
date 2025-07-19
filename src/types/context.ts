@@ -1,5 +1,4 @@
 import { QueryResetter, QueryUpdater } from "../hooks/useQuery";
-import { User } from "./user";
 
 export type DirectionFilterContextType = {
   classifyBy: Array<string>;
@@ -15,26 +14,6 @@ export type DirectionFilterContextType = {
   page: number;
   setPage: (page: number) => void;
 };
-
-export type AuthContextType = {
-  isAuth: boolean;
-  setIsAuth: (status: boolean) => void;
-  user: User | null;
-  setUser: (user: User | null) => void;
-  accessToken: string;
-  setAccessToken: (token: string) => void;
-};
-
-export type ProfileContextType = {
-  username: string;
-  setUsername: (username: string) => void;
-  email: string;
-  setEmail: (email: string) => void;
-  avatar: string | File;
-  setAvatar: (avatarURL: string | File) => void;
-};
-
-export type ProfileKey = keyof ProfileContextType;
 
 export type ProductFilterContextType = {
   classifyBy: Array<string>;
